@@ -27,7 +27,7 @@ services:
       - 9091:9091      # transmission WebUI
     volumes:
       - ./gluetun-data:/gluetun
-      - ./forwarded-port:/tmp/gluetun/forwarded_port
+      - ./tmp/gluetun:/tmp/gluetun
     environment:
       # See https://github.com/qdm12/gluetun-wiki/tree/main/setup#setup
       - VPN_SERVICE_PROVIDER=ivpn
@@ -60,7 +60,7 @@ services:
       - TRANSMISSION_RPC_USERNAME=
       - TRANSMISSION_RPC_PASSWORD=
     volumes:
-      - ./forwarded-port:/tmp/forwarded-port:ro
+      - ./tmp/gluetun:/tmp/gluetun:ro
     restart: "unless-stopped"
 ```
 
@@ -72,7 +72,7 @@ services:
 | `TRANSMISSION_RPC_PORT`     | `9091`       | `9091`                         | Port the transmission WebUI is running on. This is configurable in the transmission container. Note that this is the port *inside* the container, not the one forwarded out. |
 | `TRANSMISSION_RPC_USERNAME` | `admin`      | `RicardoMilos`                    | Username to log into the transmission WebUI.                                                                                                                                |
 | `TRANSMISSION_RPC_PASSWORD` | `adminadmin` | `correct-horse-battery-staple` | Password to log into the transmission WebUI.                                                                                                                                |
-| `GLUETUN_PORT_FILE`       | `/tmp/forwarded-port`  | `/tmp/current-port`                 | Path to the file containing the forwarded port.                                                                                  |
+| `GLUETUN_PORT_FILE`       | `/tmp/gluetun/forwarded_port`  | `/tmp/custom_port_file`                 | Path to the file containing the forwarded port.                                                                                  |
 | `INITIAL_DELAY_SEC`          | `10`         | `30`                           | Time in seconds to wait before making the first attempt to update the port.                                                                                                |
 | `CHECK_INTERVAL_SEC`         | `60`         | `600`                          | Time in seconds to wait before checking each subsequent time.                                                                                                              |
 | `ERROR_INTERVAL_SEC`         | `5`          | `3`                            | Time in seconds to wait before checking again if an error occurred.                                                                                                        |

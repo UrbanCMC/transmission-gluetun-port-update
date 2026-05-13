@@ -5,7 +5,7 @@ RUN apk add --no-cache curl
 ENV TRANSMISSION_RPC_HOST=127.0.0.1 \
     TRANSMISSION_RPC_PORT=9091 \
     TRANSMISSION_RPC_USERNAME=admin \
-    GLUETUN_PORT_FILE=/tmp/forwarded-port \
+    GLUETUN_PORT_FILE=/tmp/gluetun/forwarded_port \
     INITIAL_DELAY_SEC=10 \
     CHECK_INTERVAL_SEC=60 \
     ERROR_INTERVAL_SEC=5 \
