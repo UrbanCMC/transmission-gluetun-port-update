@@ -32,7 +32,7 @@ do
     fi
 
     echo "Checking port..."
-    new_port=$(< $GLUETUN_PORT_FILE)
+    new_port=$(cat $GLUETUN_PORT_FILE)
     echo "Received: $new_port"
 
     if [ -z "$new_port" ] || [ "$new_port" = "0" ]; then
