@@ -5,15 +5,13 @@ echo "Config:"
 echo "TRANSMISSION_RPC_HOST=$TRANSMISSION_RPC_HOST"
 echo "TRANSMISSION_RPC_PORT=$TRANSMISSION_RPC_PORT"
 echo "TRANSMISSION_RPC_USERNAME=$TRANSMISSION_RPC_USERNAME"
-echo "GLUETUN_CONTROL_HOST=$GLUETUN_CONTROL_HOST"
-echo "GLUETUN_CONTROL_PORT=$GLUETUN_CONTROL_PORT"
+echo "GLUETUN_PORT_FILE=$GLUETUN_PORT_FILE"
 echo "INITIAL_DELAY_SEC=$INITIAL_DELAY_SEC"
 echo "CHECK_INTERVAL_SEC=$CHECK_INTERVAL_SEC"
 echo "ERROR_INTERVAL_SEC=$ERROR_INTERVAL_SEC"
 echo "ERROR_INTERVAL_COUNT=$ERROR_INTERVAL_COUNT"
 
 transmission_base_url="http://$TRANSMISSION_RPC_HOST:$TRANSMISSION_RPC_PORT/transmission/rpc"
-gluetun_base_url="http://$GLUETUN_CONTROL_HOST:$GLUETUN_CONTROL_PORT"
 
 current_port="0"
 new_port=$current_port
@@ -34,7 +32,7 @@ do
     fi
 
     echo "Checking port..."
-    new_port=$(curl $gluetun_base_url/v1/openvpn/portforwarded 2> /dev/null | jq .port)
+    new_port=$(< $GLUETUN_PORT_FILE)
     echo "Received: $new_port"
 
     if [ -z "$new_port" ] || [ "$new_port" = "0" ]; then
